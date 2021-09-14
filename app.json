@@ -1,0 +1,12 @@
+{
+  "name": "challengecontele",
+  "displayName": "challengecontele",
+  "expo": {
+    "name": "challengecontele",
+    "slug": "challengecontele",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}

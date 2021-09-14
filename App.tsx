@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import AppLoading from 'expo-app-loading';
+import { ThemeProvider } from 'styled-components/native';
 import {
   useFonts,
   IBMPlexSans_400Regular,
@@ -8,6 +9,8 @@ import {
   IBMPlexSans_500Medium,
   IBMPlexSans_700Bold,
 } from '@expo-google-fonts/ibm-plex-sans';
+
+import { theme } from './src/global/theme';
 import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
@@ -23,8 +26,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <AppRoutes />
-    </NavigationContainer>
+    <ThemeProvider theme={theme}>
+      <NavigationContainer>
+        <AppRoutes />
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

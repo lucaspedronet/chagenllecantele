@@ -11,12 +11,12 @@ export const Header = styled.View`
   width: 100%;
   height: ${RFPercentage(10)}px;
 
-  background-color: ${({ theme }) => theme.card.background};
+  background-color: ${({ theme }) => theme.header.backgroundDefault};
 `;
 
 export const HeaderIcon = styled(MaterialIcons)`
   font-size: 24px;
-  color: #000;
+  color: #ffffff;
 `;
 
 export const HeaderTitle = styled.Text`

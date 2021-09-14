@@ -51,6 +51,13 @@ export const theme = {
     paddingDefault: gridScale.md,
     paddingLarge: gridScale.lg,
   },
+  statusBar: {
+    backgroundWhite: brandColors.white,
+    backgroundDefault: brandColors.primary,
+  },
+  header: {
+    backgroundDefault: brandColors.secondary,
+  },
   card: {
     background: brandColors.white,
     backgroundGree: brandColors.successDefault,

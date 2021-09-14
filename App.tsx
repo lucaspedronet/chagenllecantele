@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import AppLoading from 'expo-app-loading';
 import {
   useFonts,
@@ -7,8 +8,7 @@ import {
   IBMPlexSans_500Medium,
   IBMPlexSans_700Bold,
 } from '@expo-google-fonts/ibm-plex-sans';
-
-import { StyleSheet, Text, View } from 'react-native';
+import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
   const [fontLoading] = useFonts({
@@ -23,17 +23,8 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-    </View>
+    <NavigationContainer>
+      <AppRoutes />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

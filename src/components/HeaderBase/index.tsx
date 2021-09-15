@@ -3,36 +3,51 @@ import React from 'react';
 
 import {
   Header,
-  HeaderIcon,
   HeaderTitle,
+  TitleLeftText,
   BoxLeft,
   BoxCenter,
   BoxRight,
   ButtonGoBack,
+  ButtonStatus,
 } from './styles';
 
 interface IHeaderBase {
+  titleLeft?: string;
+  titleRight?: string;
   title?: string;
   icon?: boolean;
 }
-const HeaderBase = ({ title, icon = true }: IHeaderBase) => {
+const HeaderBase = ({ title, titleLeft, titleRight }: IHeaderBase) => {
   const navigation = useNavigation();
 
-  function handlerNavigation() {
+  function handlerGoBack() {
     navigation.goBack();
+  }
+
+  function handleStatus(): void {
+    navigation.navigate('Status');
   }
 
   return (
     <Header>
-      <BoxLeft>
-        {icon && (
-          <ButtonGoBack onPress={handlerNavigation}>
-            <HeaderIcon name="arrow-back-ios" />
+      <BoxLeft goBack={!!titleLeft}>
+        {!titleLeft ? (
+          <ButtonGoBack onPress={handlerGoBack}>
+            <TitleLeftText>Voltar</TitleLeftText>
           </ButtonGoBack>
+        ) : (
+          <TitleLeftText>{titleLeft}</TitleLeftText>
         )}
       </BoxLeft>
       <BoxCenter>{title && <HeaderTitle>{title}</HeaderTitle>}</BoxCenter>
-      <BoxRight />
+      <BoxRight>
+        {titleRight && (
+          <ButtonStatus onPress={handleStatus}>
+            <HeaderTitle>{titleRight}</HeaderTitle>
+          </ButtonStatus>
+        )}
+      </BoxRight>
     </Header>
   );
 };

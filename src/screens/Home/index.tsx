@@ -15,7 +15,12 @@ function Home() {
         animated
         translucent={false}
       />
-      <HeaderBase title="Home" />
+      <HeaderBase
+        titleLeft="Olá, bem-vindo"
+        icon={true}
+        titleRight="Status"
+        // title="Status"
+      />
       <Container />
     </>
   );

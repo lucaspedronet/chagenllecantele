@@ -6,6 +6,8 @@ import { useTheme } from 'styled-components/native';
 import { HeaderBase } from '../../components/HeaderBase';
 import { StatusBarBase } from '../../components/StatusBarBase';
 
+import { fetchPointsId, fetchPointsAll, fetchPoints } from '../../services/api';
+
 import {
   Container,
   SpecialWallpaper,
@@ -41,8 +43,28 @@ function Home() {
   const [times, setTimes] = useState<IntervalTime[]>([] as IntervalTime[]);
   const [status, setStatus] = useState<boolean>(false);
 
+  useEffect(() => setTimes(dataTimes), []);
+
   useEffect(() => {
-    setTimes(dataTimes);
+    async function loading(): Promise<void> {
+      try {
+        // await fetchPointsAll();
+        // await fetchPoints('jkl-123', [
+        //   {
+        //     id: '123',
+        //     latitude: -23.2213123,
+        //     longitude: -45.2313213,
+        //     speed: 120,
+        //     time: '2020-01-01',
+        //   },
+        // ]);
+        await fetchPointsId('123');
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    loading();
   }, []);
 
   const toggleSelectedTime = useCallback((id: string) => {

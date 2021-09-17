@@ -8,6 +8,7 @@ const brandColors = {
   white: '#ffffff',
   back: 'rgba(0, 0, 0, 1)',
   'dark-dark': '#37403B',
+  'dark-lighter': '#727285',
 };
 
 const gridScale = {
@@ -61,6 +62,7 @@ export const theme = {
   card: {
     background: brandColors.white,
     backgroundGree: brandColors.successDefault,
+    backgroundGreeLighter: brandColors.successLighter,
     paddingSmall: gridScale.xs,
     paddingDefault: gridScale.md,
     paddingLarge: gridScale.lg,
@@ -72,4 +74,5 @@ export const theme = {
   },
   fonts,
   fontScale,
+  brandColors,
 };

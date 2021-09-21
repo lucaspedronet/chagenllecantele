@@ -15,6 +15,8 @@ Objetivo deste teste é avaliar seus conhecimentos em organização, estilo, boa
 
 ### Configurando
 
+Utilize o <code>git clone</code> para fazer o download do projeto chanllecantele disponível em [Lucas Pedro](https://github.com/lucaspedronet/chagenllecantele)
+
 Dentro da raíz do projeto execute o seguinte comando
 ```
 $ yarn install ou yarn
@@ -46,3 +48,7 @@ $ yarn android ou react-native run-android
 ```
 $ yarn ios ou react-native run-ios
 ```
+
+### Proposta
+
+Link: [Test React Native](https://github.com/lucaspedronet/chagenllecantele.git)

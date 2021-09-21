@@ -6,9 +6,6 @@ async function fetchPoints(id: string, body: Point[]): Promise<void> {
   console.log(body);
   return fetch(`http://localhost:3000/points/${id}`, {
     method: 'POST',
-    headers: {
-      'content-length': '39',
-    },
     body,
   })
     .then(async response => {
@@ -17,8 +14,6 @@ async function fetchPoints(id: string, body: Point[]): Promise<void> {
       }
 
       return response.json().then(data => {
-        console.log(data);
-
         return data;
       });
     })

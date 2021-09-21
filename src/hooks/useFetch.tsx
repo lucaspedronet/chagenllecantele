@@ -139,7 +139,10 @@ function reducer(state: InitialStateProps = initialState, action: ActionProps) {
               console.log(k);
               await fetchPoints(findPackage.id, findPackage.points);
 
-              Alert.alert('Atualizado', 'Pacote foi sincornizado!');
+              ToastAndroid.show(
+                'Pacote foi sincornizado!',
+                ToastAndroid.CENTER,
+              );
               return Object.assign(k, { synchronize: true });
             }
             return k;

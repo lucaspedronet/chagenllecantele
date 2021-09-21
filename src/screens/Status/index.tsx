@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useCallback } from 'react';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { HeaderBase } from '../../components/HeaderBase';
 import { StatusBarBase } from '../../components/StatusBarBase';
@@ -21,10 +21,25 @@ function Status() {
 
   const handleSynchronizePackage = useCallback(
     (id: string) => {
-      dispatch({
-        type: StatePoints.SYNCHRONIZE_PACKAGE,
-        payload: id,
-      });
+      Alert.alert(
+        'Sincronizar',
+        `Deseja sincronizar o Pacote ID: ${id}`,
+        [
+          {
+            text: 'sincronizar',
+            style: 'default',
+            onPress: () => {
+              dispatch({
+                type: StatePoints.SYNCHRONIZE_PACKAGE,
+                payload: id,
+              });
+            },
+          },
+        ],
+        {
+          onDismiss: undefined,
+        },
+      );
     },
     [dispatch],
   );

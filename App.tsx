@@ -11,6 +11,7 @@ import {
 } from '@expo-google-fonts/ibm-plex-sans';
 
 import { theme } from './src/global/theme';
+import { FetchProvider } from './src/hooks/useFetch';
 import { AppRoutes } from './src/routes/app.routes';
 
 export default function App() {
@@ -27,9 +28,11 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
+      <FetchProvider>
+        <NavigationContainer>
+          <AppRoutes />
+        </NavigationContainer>
+      </FetchProvider>
     </ThemeProvider>
   );
 }

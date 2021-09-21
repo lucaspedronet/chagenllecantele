@@ -1,13 +1,8 @@
+import styled from 'styled-components/native';
 import { FlatList } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import styled from 'styled-components/native';
 
-type PackageProps = {
-  id: string;
-  package: string;
-  status: 'Sincronizado' | 'Pendente';
-  time: string;
-};
+import { KeyProps as PackageProps } from '../../hooks/useFetch';
 
 export const Container = styled.View`
   flex: 1;
@@ -18,7 +13,7 @@ export const ListPackage = styled(
   FlatList as new () => FlatList<PackageProps>,
 ).attrs({
   showsVerticalScrollIndicator: false,
-  contentContainerStyle: { paddingHorizontal: 16, paddingVertical: 32 },
+  contentContainerStyle: { paddingHorizontal: 20, paddingVertical: 32 },
 })`
   flex: 1;
   margin: 0px;
@@ -26,7 +21,9 @@ export const ListPackage = styled(
   width: 100%;
 `;
 
-export const PackageItem = styled.View`
+export const PackageItem = styled.TouchableOpacity.attrs({
+  activeOpacity: 0.6,
+})`
   flex-direction: row;
   align-items: flex-start;
   justify-content: space-between;
@@ -43,7 +40,7 @@ export const PackageItem = styled.View`
   background-color: transparent;
 `;
 
-export const PackageName = styled.Text`
+export const PackageName = styled.Text.attrs({ numberOfLines: 1 })`
   font-family: ${({ theme }) => theme.fonts.IBM_Medium};
   font-size: ${({ theme }) => theme.fontScale.sm}px;
   line-height: ${({ theme }) => theme.fontScale.md}px;

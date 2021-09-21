@@ -225,8 +225,6 @@ function FetchProvider({ children }: Props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [netInfo.isConnected]);
 
-  // useEffect(() => console.table(state), [state]);
-
   const toggleSelectedTime = useCallback((id: string) => {
     setTimes(props =>
       props.map(time =>

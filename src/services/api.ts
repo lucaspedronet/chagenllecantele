@@ -1,6 +1,9 @@
-import axios from 'axios';
+const { APPLICATION_URL } = process.env;
+import { Point } from '../hooks/useFetch';
 
-async function fetchPoints(id: string, body: any[]): Promise<void> {
+async function fetchPoints(id: string, body: Point[]): Promise<void> {
+  console.log(id);
+  console.log(body);
   return fetch(`http://localhost:3000/points/${id}`, {
     method: 'POST',
     headers: {
@@ -8,14 +11,14 @@ async function fetchPoints(id: string, body: any[]): Promise<void> {
     },
     body,
   })
-    .then(response => {
+    .then(async response => {
       if (!response.ok) {
-        console.warn(response.status);
         throw new Error('Error');
       }
 
       return response.json().then(data => {
         console.log(data);
+
         return data;
       });
     })
@@ -25,20 +28,18 @@ async function fetchPoints(id: string, body: any[]): Promise<void> {
 }
 
 async function fetchPointsId(id: string): Promise<void> {
-  return fetch(`http://localhost:3000/points/${id}`, {
+  return fetch(`${APPLICATION_URL}/points/${id}`, {
     method: 'GET',
     headers: {
       'content-length': '39',
     },
   })
-    .then(response => {
+    .then(async response => {
       if (!response.ok) {
-        console.warn(response.status);
         throw new Error('Error');
       }
 
       return response.json().then(data => {
-        console.log(data);
         return data;
       });
     })
@@ -54,14 +55,12 @@ async function fetchPointsAll(): Promise<void> {
       'content-length': '39',
     },
   })
-    .then(response => {
+    .then(async response => {
       if (!response.ok) {
-        console.warn(response.status);
         throw new Error('Error');
       }
 
       return response.json().then(data => {
-        console.log(data);
         return data;
       });
     })
@@ -70,8 +69,4 @@ async function fetchPointsAll(): Promise<void> {
     });
 }
 
-const api = axios.create({
-  baseURL: 'http://localhost:3000',
-});
-
-export { api, fetchPointsAll, fetchPoints, fetchPointsId };
+export { fetchPointsAll, fetchPoints, fetchPointsId };

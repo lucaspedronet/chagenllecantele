@@ -1,12 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect, useCallback } from 'react';
-import { View } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, TouchableOpacity } from 'react-native';
 import { useTheme } from 'styled-components/native';
+import * as Location from 'expo-location';
+
+import { useFetch, StatePoints, Point } from '../../hooks/useFetch';
+
 import { HeaderBase } from '../../components/HeaderBase';
 import { StatusBarBase } from '../../components/StatusBarBase';
-
-import { fetchPointsId, fetchPointsAll, fetchPoints } from '../../services/api';
 
 import {
   Container,
@@ -25,57 +26,57 @@ import {
   IntervalTimeText,
 } from './styles';
 
-type IntervalTime = {
-  time: '10s' | '5s' | '3s' | '1s';
-  selected: boolean;
-};
-
-const dataTimes: IntervalTime[] = [
-  { time: '10s', selected: false },
-  { time: '5s', selected: false },
-  { time: '3s', selected: false },
-  { time: '1s', selected: false },
-];
-
 function Home() {
   const { statusBar } = useTheme();
+  const { times, toggleSelectedTime, dispatch, findTimeSelected, packages } =
+    useFetch();
 
-  const [times, setTimes] = useState<IntervalTime[]>([] as IntervalTime[]);
   const [status, setStatus] = useState<boolean>(false);
 
-  useEffect(() => setTimes(dataTimes), []);
+  const locationPosition = useCallback(async () => {
+    let permission = await Location.requestForegroundPermissionsAsync();
 
-  useEffect(() => {
-    async function loading(): Promise<void> {
-      try {
-        // await fetchPointsAll();
-        // await fetchPoints('jkl-123', [
-        //   {
-        //     id: '123',
-        //     latitude: -23.2213123,
-        //     longitude: -45.2313213,
-        //     speed: 120,
-        //     time: '2020-01-01',
-        //   },
-        // ]);
-        await fetchPointsId('123');
-      } catch (error) {
-        console.log(error);
-      }
+    if (permission.status !== 'granted') {
+      return;
     }
 
-    loading();
-  }, []);
+    let location = await Location.getLastKnownPositionAsync({});
 
-  const toggleSelectedTime = useCallback((id: string) => {
-    setTimes(props =>
-      props.map(time =>
-        time.time === id
-          ? { ...time, selected: true }
-          : { ...time, selected: false },
-      ),
-    );
-  }, []);
+    if (location?.coords && status) {
+      const formattedDate = new Date(location.timestamp)
+        .toISOString()
+        .split('T')[0];
+
+      const point: Point = {
+        id: '',
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        speed: location.coords.speed || 0,
+        time: formattedDate,
+      };
+
+      dispatch({
+        type: StatePoints.TAKE_CURRENT_LOCAL,
+        payload: point,
+      });
+    }
+  }, [dispatch, status]);
+
+  useEffect(() => {
+    const time = findTimeSelected();
+
+    if (time?.delay) {
+      const handleInterval = setInterval(() => {
+        locationPosition();
+      }, time.delay * 1000);
+
+      return () => {
+        clearInterval(handleInterval);
+      };
+    }
+  }, [findTimeSelected, locationPosition]);
+
+  useEffect(() => console.log(packages.packages[0]), [packages]);
 
   function toggleStatus() {
     setStatus(props => !props);
